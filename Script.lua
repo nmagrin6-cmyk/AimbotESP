@@ -229,8 +229,8 @@ Players.PlayerRemoving:Connect(RemoveESP)
 -- ==================== BOTÕES ====================
 
 AimbotBtn.MouseButton1Click:Connect(function()
-    getgenv().Aimbot = not getgenv().Aimbot
-    if getgenv().Aimbot then
+    getgenv().AimBot = not getgenv().AimBot
+    if getgenv().AimBot then
         AimbotBtn.Text = "Aimbot: ON"
         AimbotBtn.TextColor3 = Color3.fromRGB(0, 255, 130)
         AimbotBtn.BackgroundColor3 = Color3.fromRGB(20, 60, 40)
