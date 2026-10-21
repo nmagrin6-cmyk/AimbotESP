@@ -1,5 +1,5 @@
 --=============================================================
---  MAGRIN HUB - UI PROFISSIONAL + AIMBOT + ESP 🌈
+--  MAGRIN HUB - UI PROFISSIONAL + AIMBOT + ESP + PLAYER 🌈
 --  Tudo inicia DESATIVADO e com cores arco-íris
 --=============================================================
 
@@ -14,11 +14,14 @@ local Camera = workspace.CurrentCamera
 
 local Config = {
     FOV = 300,
-    ATIVO = false,       -- Aimbot desligado
-    MostrarFov = false,  -- FOV desligado
-    Timeout = false,     -- Desligado
+    ATIVO = false,
+    MostrarFov = false,
+    Timeout = false,
     BrilhoFov = 2,
-    ESP_Ativo = false,   -- ESP desligado
+    ESP_Ativo = false,
+    Speed_Ativo = false,
+    Speed_Valor = 16,
+    Pulo_Infinito = false,
 }
 local ALVO = nil
 
@@ -275,7 +278,6 @@ PageAimbot.CanvasSize = UDim2.new(0, 0, 0, 0)
 PageAimbot.AutomaticCanvasSize = Enum.AutomaticSize.Y
 PageAimbot.ZIndex = 11
 PageAimbot.Parent = Content
-
 local PageLayout = Instance.new("UIListLayout")
 PageLayout.Padding = UDim.new(0, 10)
 PageLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -292,11 +294,26 @@ PageVisual.AutomaticCanvasSize = Enum.AutomaticSize.Y
 PageVisual.Visible = false
 PageVisual.ZIndex = 11
 PageVisual.Parent = Content
-
 local PageVisualLayout = Instance.new("UIListLayout")
 PageVisualLayout.Padding = UDim.new(0, 10)
 PageVisualLayout.SortOrder = Enum.SortOrder.LayoutOrder
 PageVisualLayout.Parent = PageVisual
+
+local PagePlayer = Instance.new("ScrollingFrame")
+PagePlayer.Size = UDim2.fromScale(1, 1)
+PagePlayer.BackgroundTransparency = 1
+PagePlayer.BorderSizePixel = 0
+PagePlayer.ScrollBarThickness = 3
+PagePlayer.ScrollBarImageColor3 = Color3.fromRGB(140, 80, 255)
+PagePlayer.CanvasSize = UDim2.new(0, 0, 0, 0)
+PagePlayer.AutomaticCanvasSize = Enum.AutomaticSize.Y
+PagePlayer.Visible = false
+PagePlayer.ZIndex = 11
+PagePlayer.Parent = Content
+local PagePlayerLayout = Instance.new("UIListLayout")
+PagePlayerLayout.Padding = UDim.new(0, 10)
+PagePlayerLayout.SortOrder = Enum.SortOrder.LayoutOrder
+PagePlayerLayout.Parent = PagePlayer
 
 local PageInfo = Instance.new("Frame")
 PageInfo.Size = UDim2.fromScale(1, 1)
@@ -308,7 +325,7 @@ PageInfo.Parent = Content
 --==================== TABS SISTEMA ====================
 local function CriarTab(nome, pagina)
     local tabBtn = Instance.new("TextButton")
-    tabBtn.Size = UDim2.fromOffset(100, 30)
+    tabBtn.Size = UDim2.fromOffset(90, 30)
     tabBtn.BackgroundColor3 = Color3.fromRGB(22, 20, 30)
     tabBtn.Text = nome
     tabBtn.TextColor3 = Color3.fromRGB(160, 140, 200)
@@ -342,7 +359,8 @@ local function CriarTab(nome, pagina)
 end
 
 local TabAimbot = CriarTab("Aimbot", PageAimbot)
-local TabVisual = CriarTab("Visual (ESP)", PageVisual)
+local TabVisual = CriarTab("ESP", PageVisual)
+local TabPlayer = CriarTab("Player", PagePlayer)
 local TabInfo = CriarTab("Info", PageInfo)
 TabAimbot.BackgroundColor3 = Color3.fromRGB(140, 80, 255)
 TabAimbot.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -552,28 +570,7 @@ CreateToggle(PageVisual, "Ativar ESP", Config.ESP_Ativo, function(v)
     end
 end)
 
---==================== CONTEÚDO - INFO ====================
-local infoTitulo = Instance.new("TextLabel")
-infoTitulo.Size = UDim2.new(1, 0, 0, 40)
-infoTitulo.BackgroundTransparency = 1
-infoTitulo.Text = "MAGRIN HUB"
-infoTitulo.TextColor3 = Color3.fromRGB(180, 120, 255)
-infoTitulo.TextSize = 28
-infoTitulo.Font = Enum.Font.GothamBlack
-infoTitulo.ZIndex = 11
-infoTitulo.Parent = PageInfo
-
-local infoSub = Instance.new("TextLabel")
-infoSub.Size = UDim2.new(1, 0, 0, 25)
-infoSub.Position = UDim2.fromOffset(0, 45)
-infoSub.BackgroundTransparency = 1
-infoSub.Text = "by Magrin >⁠.⁠<"
-infoSub.TextColor3 = Color3.fromRGB(160, 140, 200)
-infoSub.TextSize = 14
-infoSub.Font = Enum.Font.GothamMedium
-infoSub.ZIndex = 11
-infoSub.Parent = PageInfo
-
-local infoLinha = Instance.new("Frame")
-infoLinha.Size = UDim2.new(1, -60, 0, 1)
-infoLinha.Position = UDim2.fromOffs
+--==================== CONTEÚDO - PLAYER ====================
+CreateSection(PagePlayer, "MOVIMENTAÇÃO")
+CreateToggle(PagePlayer, "Ativar Speed", Config.Speed_Ativo, function(v)
+    Config
